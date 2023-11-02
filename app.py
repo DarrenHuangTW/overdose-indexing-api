@@ -22,9 +22,9 @@ st.header("Google Indexing API - Overdose", divider='rainbow')
 
 
 # built-in secrets in Streamlit 
-secrets = st.secrets
+# secrets = st.secrets
 
-service_account_info = {
+# service_account_info = {
     "type": secrets["type"],
     "project_id": secrets["project_id"],
     "private_key_id": secrets["private_key_id"],
@@ -45,7 +45,15 @@ google_client = build("indexing", "v3", credentials=credentials)
 
 
 # Use file
-st.markdown("Document: How to Use Indexing API: [slides](https://docs.google.com/presentation/d/1aav8mGnOcwkmj0k66F2l9EazQGwU9QHHMf0qh05K4Ss/edit)")
+st.markdown("## Steps:")
+steps = ''':one: Add 'seo-admin@darren-indexing-api.iam.gserviceaccount.com' as a delegated owner in Google Search Console for the website you'd like to submit
+
+:two: Provide a list of URL you'd like to request indexing
+
+:three: Submit
+'''
+st.markdown(steps)
+
 
 urls_input = st.text_area("Enter URLs you'd like to submit, one URL per line")
 submit_button = st.button("Submit")
