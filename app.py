@@ -11,16 +11,37 @@ st.header("Google Indexing API - Overdose", divider='rainbow')
 
 
 # Let users upload their secrets, which is a json file
-uploaded_file = st.file_uploader("Upload your secrets (JSON file)", type="json")
-if uploaded_file is not None:
-    secrets = json.load(uploaded_file)
+# uploaded_file = st.file_uploader("Upload your secrets (JSON file)", type="json")
+# if uploaded_file is not None:
+#     secrets = json.load(uploaded_file)
+#     service_account_info = secrets
+#     credentials = service_account.Credentials.from_service_account_info(
+#         service_account_info, scopes=["https://www.googleapis.com/auth/indexing"]
+#     )
+#     google_client = build("indexing", "v3", credentials=credentials)
 
-    print(secrets)
-    service_account_info = secrets
-    credentials = service_account.Credentials.from_service_account_info(
-        service_account_info, scopes=["https://www.googleapis.com/auth/indexing"]
-    )
-    google_client = build("indexing", "v3", credentials=credentials)
+
+# built-in secrets in Streamlit 
+secrets = st.secrets
+
+service_account_info = {
+    "type": secrets["type"],
+    "project_id": secrets["project_id"],
+    "private_key_id": secrets["private_key_id"],
+    "private_key": secrets["private_key"],
+    "client_email": secrets["client_email"],
+    "client_id": secrets["client_id"],
+    "auth_uri": secrets["auth_uri"],
+    "token_uri": secrets["token_uri"],
+    "auth_provider_x509_cert_url": secrets["auth_provider_x509_cert_url"],
+    "client_x509_cert_url": secrets["client_x509_cert_url"],
+}
+
+credentials = service_account.Credentials.from_service_account_info(
+    service_account_info, scopes=["https://www.googleapis.com/auth/indexing"]
+)
+
+google_client = build("indexing", "v3", credentials=credentials)
 
 
 # Use file
