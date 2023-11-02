@@ -22,7 +22,7 @@ st.header("Google Indexing API - Overdose", divider='rainbow')
 
 
 # built-in secrets in Streamlit 
-# secrets = st.secrets
+secrets = st.secrets
 
 service_account_info = {
     "type": secrets["type"],
