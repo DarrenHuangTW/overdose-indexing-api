@@ -24,7 +24,7 @@ st.header("Google Indexing API - Overdose", divider='rainbow')
 # built-in secrets in Streamlit 
 # secrets = st.secrets
 
-# service_account_info = {
+service_account_info = {
     "type": secrets["type"],
     "project_id": secrets["project_id"],
     "private_key_id": secrets["private_key_id"],
