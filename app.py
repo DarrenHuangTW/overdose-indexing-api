@@ -24,9 +24,9 @@ st.header("Google Indexing API - Overdose", divider='rainbow')
 
 
 # STEP 1
-st.markdown("### Step 1: Select a service account below.")
+st.markdown("### Step 1: Select a service account from the list below.")
 all_secrets = st.secrets
-selected_secret = st.selectbox('Each one has a daily quota of 200 URLs. Select another one if it fails', list(all_secrets.keys()))
+selected_secret = st.selectbox('ach account has a daily quota of 200 URLs. If one fails, please select another.', list(all_secrets.keys()))
 secrets = all_secrets[selected_secret]
 
 service_account_info = {
@@ -43,7 +43,7 @@ service_account_info = {
 }
 
 # STEP 2
-st.markdown("### Step 2: Add the following account as a delegated owner in Google Search Console for the website you'd like to submit URLs for.")
+st.markdown("### Step 2: Add the following account as a delegated owner in Google Search Console for the website for which you wish to submit URLs:")
 client_email = secrets["client_email"]
 st.markdown(client_email)
 
@@ -68,8 +68,8 @@ google_client = build("indexing", "v3", credentials=credentials)
 # st.markdown(steps)
 
 # STEP 3 
-st.markdown("### Step 3: Provide a list of URL you'd like to request indexing then submit")
-urls_input = st.text_area("Enter URLs you'd like to submit, one URL per line")
+st.markdown("### Step 3: Provide a list of URLs that you would like to request indexing for, then submit.")
+urls_input = st.text_area("Enter up to 100 URLs you wish to submit, one URL per line.")
 submit_button = st.button("Submit")
 
 if submit_button and urls_input:
