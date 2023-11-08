@@ -10,6 +10,8 @@ import streamlit as st
 st.header("Google Indexing API - Overdose", divider='rainbow')
 
 
+
+
 # Let users upload their secrets, which is a json file
 # uploaded_file = st.file_uploader("Upload your secrets (JSON file)", type="json")
 # if uploaded_file is not None:
@@ -22,7 +24,11 @@ st.header("Google Indexing API - Overdose", divider='rainbow')
 
 
 # built-in secrets in Streamlit 
-secrets = st.secrets
+all_secrets = st.secrets
+selected_secret = st.selectbox('Select a service account, each one has a daily quota of 200 URLs. Select another one if it fails', list(all_secrets.keys()))
+secrets = all_secrets[selected_secret]
+
+#secrets = st.secrets
 
 service_account_info = {
     "type": secrets["type"],
