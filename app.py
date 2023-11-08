@@ -23,12 +23,11 @@ st.header("Google Indexing API - Overdose", divider='rainbow')
 #     google_client = build("indexing", "v3", credentials=credentials)
 
 
-# built-in secrets in Streamlit 
+# STEP 1
+st.markdown("### Step 1: Select a service account below.")
 all_secrets = st.secrets
-selected_secret = st.selectbox('Select a service account, each one has a daily quota of 200 URLs. Select another one if it fails', list(all_secrets.keys()))
+selected_secret = st.selectbox('Each one has a daily quota of 200 URLs. Select another one if it fails', list(all_secrets.keys()))
 secrets = all_secrets[selected_secret]
-
-#secrets = st.secrets
 
 service_account_info = {
     "type": secrets["type"],
@@ -43,6 +42,12 @@ service_account_info = {
     "client_x509_cert_url": secrets["client_x509_cert_url"],
 }
 
+# STEP 2
+st.markdown("### Step 2: Add the following account as a delegated owner in Google Search Console for the website you'd like to submit URLs for.")
+client_email = secrets["client_email"]
+st.markdown(client_email)
+
+
 credentials = service_account.Credentials.from_service_account_info(
     service_account_info, scopes=["https://www.googleapis.com/auth/indexing"]
 )
@@ -50,17 +55,20 @@ credentials = service_account.Credentials.from_service_account_info(
 google_client = build("indexing", "v3", credentials=credentials)
 
 
+
+
 # Use file
-st.markdown("## Steps:")
-steps = ''':one: Add 'seo-admin@darren-indexing-api.iam.gserviceaccount.com' as a delegated owner in Google Search Console for the website you'd like to submit
+# st.markdown("## Steps:")
+# steps = ''':one: Add 'seo-admin@darren-indexing-api.iam.gserviceaccount.com' as a delegated owner in Google Search Console for the website you'd like to submit
 
-:two: Provide a list of URL you'd like to request indexing
+# :two: Provide a list of URL you'd like to request indexing
 
-:three: Submit
-'''
-st.markdown(steps)
+# :three: Submit
+# '''
+# st.markdown(steps)
 
-
+# STEP 3 
+st.markdown("### Step 3: Provide a list of URL you'd like to request indexing then submit")
 urls_input = st.text_area("Enter URLs you'd like to submit, one URL per line")
 submit_button = st.button("Submit")
 
@@ -85,7 +93,7 @@ if submit_button and urls_input:
         if isinstance(response, HttpError):
             error_message = response.content.decode("utf-8")
             if "Permission denied. Failed to verify the URL ownership" in error_message:
-                st.error("Permission denied. Failed to verify the URL ownership. Please add 'seo-admin@darren-indexing-api.iam.gserviceaccount.com' as an 'Owner' in Google Search Console.")
+                st.error(f"Permission denied. Failed to verify the URL ownership. Please add '{client_email}' as an 'Owner' in Google Search Console.")
             else:
                 st.error(f"Error Message: {error_message}")
                 st.error("Please contact Darren Huang for assistance.")
