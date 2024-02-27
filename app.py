@@ -13,6 +13,8 @@ st.markdown(
     unsafe_allow_html=True
 )
 
+st.set_page_config(page_title="Overdose SEO Team for the Win!"
+
 # Streamlit Header
 st.header("Google Indexing API - Overdose", divider='rainbow')
 
