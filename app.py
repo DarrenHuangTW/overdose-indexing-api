@@ -9,11 +9,8 @@ import streamlit as st
 st.markdown(
     """
     <meta name="google-site-verification" content="WXeNe3zwCmzOcd337ey24wJPzlg4xnzQHz5PlxPWiMc" />
-    """,
-    unsafe_allow_html=True
+    """
 )
-
-st.set_page_config(page_title="Overdose SEO Team for the Win!")
 
 # Streamlit Header
 st.header("Google Indexing API - Overdose", divider='rainbow')
