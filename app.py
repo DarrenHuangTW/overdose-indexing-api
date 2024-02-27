@@ -5,6 +5,13 @@ from googleapiclient.errors import HttpError
 from googleapiclient.discovery import build
 import streamlit as st
 
+# Robots Noindex
+st.markdown(
+    """
+    <meta name="robots" content="noindex">
+    """,
+    unsafe_allow_html=True
+)
 
 # Streamlit Header
 st.header("Google Indexing API - Overdose", divider='rainbow')
