@@ -5,12 +5,6 @@ from googleapiclient.errors import HttpError
 from googleapiclient.discovery import build
 import streamlit as st
 
-# Robots Noindex
-st.markdown(
-    """
-    <meta name="google-site-verification" content="WXeNe3zwCmzOcd337ey24wJPzlg4xnzQHz5PlxPWiMc" />
-    """
-)
 
 # Streamlit Header
 st.header("Google Indexing API - Overdose", divider='rainbow')
