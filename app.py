@@ -78,6 +78,8 @@ if submit_button and urls_input:
                 response = google_client.urlNotifications().publish(
                     body={"url": url, "type": "URL_UPDATED"}
                 ).execute()
+                # st.write(f"API Response: {response}")
+                
                 responses.append((url, response))
             except HttpError as e:
                 responses.append((url, e))
@@ -95,7 +97,9 @@ if submit_button and urls_input:
                 st.error("Please contact Darren Huang for assistance.")
         else:
             notify_time_str = response.get("urlNotificationMetadata", {}).get("latestUpdate", {}).get("notifyTime", "")
-            notify_time = datetime.strptime(notify_time_str.split('.')[0].rstrip('Z'), "%Y-%m-%dT%H:%M:%S").replace(tzinfo=timezone.utc)
-            notify_time = notify_time.replace(microsecond=0)
-
-            st.success(f"{url} | URL submitted successfully at {notify_time}.")
+            if notify_time_str:
+                notify_time = datetime.strptime(notify_time_str.split('.')[0].rstrip('Z'), "%Y-%m-%dT%H:%M:%S").replace(tzinfo=timezone.utc)
+                notify_time = notify_time.replace(microsecond=0)
+                st.success(f"{url} | URL submitted successfully at {notify_time}.")
+            else:
+                st.success(f"{url} | URL submitted successfully. Response: {response}")
